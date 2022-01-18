@@ -57,7 +57,7 @@ def main(args):
         if not os.path.isfile(video_file):
             exit(f'Input video \"{video_file}\" does not exist!')
 
-        output_path = os.path.join(args.output_folder, os.path.basename(video_file).replace('.mp4', '_' + args.exp))
+        output_path = os.path.join(args.output_folder, os.path.basename(video_file).replace('.mp4', '_data' + args.exp))
         os.makedirs(output_path, exist_ok=True)
 
         if os.path.isdir(os.path.join(output_path, 'tmp_images')):
@@ -134,9 +134,9 @@ def main(args):
 
             # Save the input video as well
             images_to_video(img_folder=input_image_folder, output_vid_file=os.path.join(output_path, vid_name))
-            # shutil.rmtree(output_img_folder)
+            hutil.rmtree(output_img_folder)
 
-        # shutil.rmtree(image_folder)
+        shutil.rmtree(image_folder)
     elif args.mode == 'folder':
         logger.info(f'Number of input frames {num_frames}')
 
@@ -161,6 +161,13 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+
+
+    parser.add_argument('--temp_image_folder', type=str, default=None,
+                        help='where to save intermediate images when parsing video')
+
+    parser.add_argument('--save_vertices', type=bool, default=False,
+                        help='save vertices in output file. False reduces size of file.')
 
     parser.add_argument('--cfg', type=str, default=CFG,
                         help='config file that defines model hyperparams')
