@@ -134,7 +134,7 @@ def main(args):
 
             # Save the input video as well
             images_to_video(img_folder=input_image_folder, output_vid_file=os.path.join(output_path, vid_name))
-            hutil.rmtree(output_img_folder)
+            shutil.rmtree(output_img_folder)
 
         shutil.rmtree(image_folder)
     elif args.mode == 'folder':
