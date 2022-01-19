@@ -141,7 +141,7 @@ def main(args):
             images_to_video(img_folder=input_image_folder, output_vid_file=os.path.join(output_path, vid_name))
             shutil.rmtree(output_img_folder)
 
-        shutil.rmtree(image_folder)
+        shutil.rmtree(input_image_folder)
     elif args.mode == 'folder':
         logger.info(f'Number of input frames {num_frames}')
 
