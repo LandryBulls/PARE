@@ -107,6 +107,10 @@ def main(args):
         tracking_results = tester.run_tracking(video_file, input_image_folder)
         pare_time = time.time()
         pare_results = tester.run_on_video(tracking_results, input_image_folder, orig_width, orig_height)
+        if not args.save_vertices:
+            for track in list(pare_results.keys()):
+                del pare_results[track]['verts']
+
         end = time.time()
 
         fps = num_frames / (end - pare_time)
@@ -164,8 +168,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
 
-    parser.add_argument('--temp_image_folder', type=str, default=None,
-                        help='where to save intermediate images when parsing video')
+    # parser.add_argument('--temp_image_folder', type=str, default=None,
+    #                     help='where to save intermediate images when parsing video')
 
     parser.add_argument('--save_vertices', type=bool, default=False,
                         help='save vertices in output file. False reduces size of file.')
