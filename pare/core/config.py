@@ -29,21 +29,22 @@ from typing import Dict, List, Union, Any
 from flatten_dict import flatten, unflatten
 
 # from ..utils.cluster import execute_task_on_cluster
+pare_loc = os.path.dirname(__file__)[:-4]
 
 ##### CONSTANTS #####
-DATASET_NPZ_PATH = 'data/dataset_extras'
-DATASET_LMDB_PATH = 'data/lmdb'
+DATASET_NPZ_PATH = pare_loc+'data/dataset_extras'
+DATASET_LMDB_PATH = pare_loc+'data/lmdb'
 
 
-PW3D_ROOT = 'data/dataset_folders/3dpw'
-OH3D_ROOT = 'data/dataset_folders/3doh'
+PW3D_ROOT = pare_loc+'data/dataset_folders/3dpw'
+OH3D_ROOT = pare_loc+'data/dataset_folders/3doh'
 
-JOINT_REGRESSOR_TRAIN_EXTRA = 'data/J_regressor_extra.npy'
-JOINT_REGRESSOR_H36M = 'data/J_regressor_h36m.npy'
-SMPL_MEAN_PARAMS = 'data/smpl_mean_params.npz'
-SMPL_MODEL_DIR = 'data/body_models/smpl'
-COCO_OCCLUDERS_FILE = 'data/occlusion_augmentation/coco_train2014_occluders.pkl'
-PASCAL_OCCLUDERS_FILE = 'data/occlusion_augmentation/pascal_occluders.pkl'
+JOINT_REGRESSOR_TRAIN_EXTRA = pare_loc+'data/J_regressor_extra.npy'
+JOINT_REGRESSOR_H36M = pare_loc+'data/J_regressor_h36m.npy'
+SMPL_MEAN_PARAMS = pare_loc+'data/smpl_mean_params.npz'
+SMPL_MODEL_DIR = pare_loc+'data/body_models/smpl'
+COCO_OCCLUDERS_FILE = pare_loc+'data/occlusion_augmentation/coco_train2014_occluders.pkl'
+PASCAL_OCCLUDERS_FILE = pare_loc+'data/occlusion_augmentation/pascal_occluders.pkl'
 
 DATASET_FOLDERS = {
     '3dpw': PW3D_ROOT,

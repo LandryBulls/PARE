@@ -1,0 +1,9 @@
+pare/data
+**.npy
+**.npz
+**.pkl
+**.mp4
+/.idea
+**.pyc
+**/__pycache__
+**/pare.egg-info
