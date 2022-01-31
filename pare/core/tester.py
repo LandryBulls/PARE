@@ -137,7 +137,6 @@ class PARETester:
         for person_id in list(tracking_results.keys()):
             if tracking_results[person_id]['frames'].shape[0] < MIN_NUM_FRAMES:
                 del tracking_results[person_id]
-
         return tracking_results
 
     def run_detector(self, image_folder):
