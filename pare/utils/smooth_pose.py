@@ -22,7 +22,7 @@ from ..core.config import SMPL_MODEL_DIR
 from .one_euro_filter import OneEuroFilter
 
 
-def smooth_pose(pred_pose, pred_betas, min_cutoff=0.004, beta=0.7):
+def smooth_pose(pred_pose, pred_betas, min_cutoff=1/60, beta=60):
     # min_cutoff: Decreasing the minimum cutoff frequency decreases slow speed jitter
     # beta: Increasing the speed coefficient(beta) decreases speed lag.
 
