@@ -162,21 +162,32 @@ class PARETester:
         image_file_names = sorted(image_file_names)
 
         for img_idx, img_fname in enumerate(image_file_names):
+
+            # here we grab the person detections for the current frame
+            # detections is a list of lists, where each list is a list of detections for a given frame
+            # each detection is a list of 4 values: [x1, y1, x2, y2]
+
             dets = detections[img_idx]
 
+            # do nothin gif there's no one in the frame
             if len(dets) < 1:
                 continue
+
+            # this is where it would be good to add code to grab faces and send for pyfeat annotation
 
             img = cv2.cvtColor(cv2.imread(img_fname), cv2.COLOR_BGR2RGB)
 
             orig_height, orig_width = img.shape[:2]
 
+            # ========= Run PARE on each person ========= #
+            # inp_images is an array of what will become images, they're sent to the model
             inp_images = torch.zeros(len(dets), 3, self.model_cfg.DATASET.IMG_RES,
                                      self.model_cfg.DATASET.IMG_RES, device=self.device, dtype=torch.float)
 
-            for det_idx, det in enumerate(dets):
-                bbox = det
-                norm_img, raw_img, kp_2d = get_single_image_crop_demo(
+            for det_idx, det in enumerate(dets): # for each person in the frame
+                bbox = det # get the bbox
+                # get the cropped images to send to the model
+                norm_img, raw_img, kp_2d = get_single_image_crop_demo( # this is where the image is cropped
                     img,
                     bbox,
                     kp_2d=None,
@@ -185,12 +196,17 @@ class PARETester:
                 )
                 inp_images[det_idx] = norm_img.float().to(self.device)
             try:
+                # here is where the cropped image is actually fed to the PARE model for pose estimation
                 output = self.model(inp_images)
             except Exception as e:
                 import IPython; IPython.embed(); exit()
 
+            # At this point the output still lives on the GPU, so we need to move it to the CPU as a np array
             for k,v in output.items():
                 output[k] = v.cpu().numpy()
+
+            # this is where I need to clear the cache
+            torch.cuda.empty_cache() # added by Landry
 
             orig_cam = convert_crop_cam_to_orig_img(
                 cam=output['pred_cam'],
