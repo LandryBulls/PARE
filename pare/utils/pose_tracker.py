@@ -14,6 +14,12 @@
 #
 # Contact: ps-license@tuebingen.mpg.de
 
+
+"""
+This script is triggered by the use of the tracking_method=pose flag.
+It uses openpose to track the continuous pose of a person in a video.
+"""
+
 import os
 import json
 import shutil
