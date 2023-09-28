@@ -3,7 +3,10 @@ pare/data
 **.npz
 **.pkl
 **.mp4
+**.ckpt
+**.yaml
 /.idea
 **.pyc
 **/__pycache__
 **/pare.egg-info
+models/
