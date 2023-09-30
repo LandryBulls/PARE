@@ -349,8 +349,8 @@ class PARETester:
                 print('Smoothing pose using OneEuroFilter')
                 #min_cutoff = self.args.min_cutoff  # 1/60
                 #beta = self.args.beta  # 60
-                min_cutoff = 1
-                beta = 0.1
+                min_cutoff = 1/60
+                beta = 60
                 logger.info(f'Running smoothing on person {person_id}, min_cutoff: {min_cutoff}, beta: {beta}')
                 pred_verts, pred_pose, pred_joints3d = smooth_pose(pred_pose, pred_betas,
                                                                    min_cutoff=min_cutoff, beta=beta)

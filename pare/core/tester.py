@@ -12,7 +12,7 @@
 # der Wissenschaften e.V. (MPG). acting on behalf of its Max Planck Institute
 # for Intelligent Systems. All rights reserved.
 #
-# Contact: ps-license@tuebingen.mpg.de
+# Contact: ps-license@tuebingen.mpg.deg
 
 import os
 import cv2
@@ -43,8 +43,7 @@ from ..utils.demo_utils import (
 from ..utils.vibe_image_utils import get_single_image_crop_demo
 
 
-MIN_NUM_FRAMES = 0
-
+MIN_NUM_FRAMES = 3
 
 class PARETester:
     def __init__(self, args):
@@ -54,6 +53,7 @@ class PARETester:
         self.model = self._build_model()
         self._load_pretrained_model()
         self.model.eval()
+        self.static_cam = args.static_cam
 
     def _build_model(self):
         # ========= Define PARE model ========= #
@@ -116,6 +116,7 @@ class PARETester:
         logger.info(f'Loaded pretrained weights from \"{self.args.ckpt}\"')
 
     def run_tracking(self, video_file, image_folder):
+        ## This is the function that pare is using (doesn't seem to run detector)
         # ========= Run tracking ========= #
         if self.args.tracking_method == 'pose':
             if not os.path.isabs(video_file):
@@ -133,7 +134,7 @@ class PARETester:
             )
             tracking_results = mot(image_folder)
 
-        # remove tracklets if num_frames is less than MIN_NUM_FRAMES
+        #remove tracklets if num_frames is less than MIN_NUM_FRAMES
         for person_id in list(tracking_results.keys()):
             if tracking_results[person_id]['frames'].shape[0] < MIN_NUM_FRAMES:
                 del tracking_results[person_id]
